@@ -189,7 +189,7 @@
 </div>
  <button type="button"
 id="addLoanNumberBtn"
-  class="bg-teal-700 hover:bg-teal-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 mt-2 shadow">
+  class="hidden bg-teal-700 hover:bg-teal-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 mt-2 shadow">
 <span class="text-lg font-bold">+</span>
 <span>Add Interest</span>
  </button>
@@ -659,7 +659,6 @@ id="addLoanNumberBtn"
      <script>
       document.addEventListener("DOMContentLoaded", function () {
 
-
         const sendBillTo = document.getElementById("Send_Bill_To");
   const billByMailContainer = document.getElementById("billByMailContainer");
   sendBillTo.addEventListener("change", function () {
@@ -685,6 +684,8 @@ id="addLoanNumberBtn"
   }
 
   deleteInterestCheckbox.addEventListener("change", toggleLoanNumberRow1);
+
+  
 
          const loanNumberContainer = document.getElementById("loanNumberDeleteContainer");
   const addLoanNumberBtn = document.getElementById("addLoanNumberBtn");
@@ -893,6 +894,36 @@ id="addLoanNumberBtn"
           }
         });
         validatePolicyNumberField();
+
+ 
+    const addInterestBtn = document.getElementById("addLoanNumberBtn");
+
+    // Initial check on load
+    addInterestBtn.classList.toggle("hidden", !deleteInterestCheckbox.checked);
+
+    // Toggle on change
+    deleteInterestCheckbox.addEventListener("change", function () {
+       if (this.checked) {
+    addInterestBtn.classList.remove("hidden");
+  } else {
+    addInterestBtn.classList.add("hidden");
+
+    // Remove all dynamically added loan rows (Loan 2 & 3)
+    const dynamicLoanRows = loanNumberContainer.querySelectorAll(".loan-number-row");
+    dynamicLoanRows.forEach(row => {
+      // Only remove rows beyond the first one (Loan 1 is always visible)
+      if (row.id !== "loanNumberRow1") {
+        row.remove();
+        loanCount = 1; // reset loanCount back to 1
+      }
+    });
+
+    // Re-enable Add Interest button in case it was disabled
+    addLoanNumberBtn.disabled = false;
+    addLoanNumberBtn.classList.remove("opacity-50", "cursor-not-allowed");
+    loanNumberLimitMsg.classList.add("hidden");
+  }
+    });
       });
     </script>
   </form>
