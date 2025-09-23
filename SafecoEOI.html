@@ -69,14 +69,16 @@
     <input type="hidden" name="phone" value="2367236712" />
     <input type="hidden" name="lead_source" value="Web Form" />
     <input type="hidden" name="company" value="Caelius Test Safeco New" />
+    <input type="hidden" id="loanDeleteCount" name="loanDeleteCount" value="0" />
+<input type="hidden" id="interestAddCount" name="interestAddCount" value="1" />
      <input
           type="hidden"
           id="00NU7000005zuNN"
           name="00NU7000005zuNN"
           value="EOI"
         />
-<!--<input type="hidden" name="debug" value=1>  -->                            
-<!--<input type="hidden" name="debugEmail" value="annie.rawal@caeliusconsulting.com"> -->
+<input type="hidden" name="debug" value=1>                            
+<input type="hidden" name="debugEmail" value="annie.rawal@caeliusconsulting.com"> 
 
 
     <!-- Policy Changes Section (email, request type, policy action) -->
@@ -183,7 +185,7 @@
 <!-- Loan Number 1, always visible -->
 <div id="loanNumberRow1" style="display:none;">
   <label for="Loan_Number_To_Delete1" class="block text-sm font-semibold mb-1">Loan Number 1</label>
-  <input type="text" id="Loan_Number_To_Delete1" name="Loan_Number_To_Delete1" class="w-full p-2 border border-gray-300 rounded-lg" />
+  <input type="text" id="Loan_Number_To_Delete1" name="Loan_Number_To_Delete1__c" class="w-full p-2 border border-gray-300 rounded-lg" />
 </div>
  <!-- Loan Number 2 and 3 will be dynamically inserted here -->
 </div>
@@ -203,12 +205,12 @@ id="addLoanNumberBtn"
   
  <div>
       <label for="name_1" class="block text-sm font-semibold mb-1">Name<span class="text-red-600">*</span></label>
-      <input type="text" id="name_1" name="name_1" class="w-full p-2 border border-gray-300 rounded-lg mb-3" />
+      <input type="text" id="name_1__c" name="name_1" class="w-full p-2 border border-gray-300 rounded-lg mb-3" />
     </div>
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
     <div>
       <label for="name_1_1" class="block text-sm font-semibold mb-1">Name Line 2</label>
-      <select id="name_1_1" name="name_1_1" class="w-full p-2 border border-gray-300 rounded-lg mb-2">
+      <select id="name_1_1" name="name_1_1__c" class="w-full p-2 border border-gray-300 rounded-lg mb-2">
        <option value="">--None--</option>
       <option value="Its Successors And/Or Assigns">Its Successors And/Or Assigns</option>
       <option value="As Their Interest May Appear" >As Their Interest May Appear</option>
@@ -218,31 +220,31 @@ id="addLoanNumberBtn"
     </div>
     <div>
       <label for="name1_1_1" class="block text-sm font-semibold mb-1">Line 2<span class="text-red-600">*</span></label>
-      <input type="text" id="name1_1_1" name="name1_1_1"  maxlength="30" class="w-full p-2 border border-gray-300 rounded-lg" />
+      <input type="text" id="name1_1_1" name="name1_1_1__c"  maxlength="30" class="w-full p-2 border border-gray-300 rounded-lg" />
     </div>
   </div>
  
     <div>
       <label for="loanNumber_1" class="block text-sm font-semibold mb-1">Loan Number</label>
-      <input type="text" id="loanNumber_1" name="loanNumber_1" class="w-full p-2 border border-gray-300 rounded-lg" />
+      <input type="text" id="loanNumber_1" name="loanNumber_1__c" class="w-full p-2 border border-gray-300 rounded-lg" />
     </div>
   
   <div class="mb-2">
     <label for="address_1" class="block text-sm font-semibold mb-1">Address<span class="text-red-600">*</span></label>
-    <input type="text" id="address_1" name="address_1" maxlength="30"  class="w-full p-2 border border-gray-300 rounded-lg" />
+    <input type="text" id="address_1" name="address_1__c" maxlength="30"  class="w-full p-2 border border-gray-300 rounded-lg" />
   </div>
   <div class="mb-2">
     <label for="address2_1" class="block text-sm font-semibold mb-1">Address 2</label>
-    <input type="text" id="address2_1" name="address2_1" maxlength="30" class="w-full p-2 border border-gray-300 rounded-lg" />
+    <input type="text" id="address2_1" name="address2_1__c" maxlength="30" class="w-full p-2 border border-gray-300 rounded-lg" />
   </div>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-2">
     <div>
       <label for="city_1" class="block text-sm font-semibold mb-1">City<span class="text-red-600">*</span></label>
-      <input type="text" id="city_1" name="city_1"  class="w-full p-2 border border-gray-300 rounded-lg" />
+      <input type="text" id="city_1" name="city_1__c"  class="w-full p-2 border border-gray-300 rounded-lg" />
     </div>
     <div>
       <label for="state_1" class="block text-sm font-semibold mb-1">State<span class="text-red-600">*</span></label>
-      <select id="state_1" name="state_1"  class="w-full p-2 border border-gray-300 rounded-lg">
+      <select id="state_1" name="state_1__c"  class="w-full p-2 border border-gray-300 rounded-lg">
         <option value="">--None--</option>
         <option value="Arizona">Arizona</option>
         <option value="Alabama">Alabama</option>
@@ -318,7 +320,7 @@ id="addLoanNumberBtn"
     </div>
     <div>
       <label for="zip_1" class="block text-sm font-semibold mb-1">Zip Code<span class="text-red-600">*</span></label>
-      <input type="text" id="zip_1" name="zip_1"  class="w-full p-2 border border-gray-300 rounded-lg" />
+      <input type="text" id="zip_1" name="zip_1__c"  class="w-full p-2 border border-gray-300 rounded-lg" />
     </div>
   </div>
   <hr class="border-t border-gray-300 my-4" />
@@ -332,12 +334,12 @@ id="addLoanNumberBtn"
   
   <div>
       <label for="name_2" class="block text-sm font-semibold mb-1">Name<span class="text-red-600">*</span></label>
-      <input type="text" id="name_2" name="name_2" class="w-full p-2 border border-gray-300 rounded-lg mb-3" />
+      <input type="text" id="name_2" name="name_2__c" class="w-full p-2 border border-gray-300 rounded-lg mb-3" />
     </div>
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
     <div>
       <label for="name_2_2" class="block text-sm font-semibold mb-1">Name Line 2</label>
-      <select id="name_2_2" name="name_2_2" class="w-full p-2 border border-gray-300 rounded-lg mb-2">
+      <select id="name_2_2" name="name_2_2__c" class="w-full p-2 border border-gray-300 rounded-lg mb-2">
         <option value="">--None--</option>
       <option value="Its Successors And/Or Assigns">Its Successors And/Or Assigns</option>
       <option value="As Their Interest May Appear" >As Their Interest May Appear</option>
@@ -347,32 +349,32 @@ id="addLoanNumberBtn"
     </div>
     <div>
       <label for="name2_2_2" class="block text-sm font-semibold mb-1">Line 2<span class="text-red-600">*</span></label>
-      <input type="text" id="name2_2_2" name="name2_2_2"  maxlength="30" class="w-full p-2 border border-gray-300 rounded-lg" />
+      <input type="text" id="name2_2_2" name="name2_2_2__c"  maxlength="30" class="w-full p-2 border border-gray-300 rounded-lg" />
     </div>
   </div>
   
     <div>
       <label for="loanNumber_2" class="block text-sm font-semibold mb-1">Loan Number</label>
-      <input type="text" id="loanNumber_2" name="loanNumber_2" class="w-full p-2 border border-gray-300 rounded-lg" />
+      <input type="text" id="loanNumber_2" name="loanNumber_2__c" class="w-full p-2 border border-gray-300 rounded-lg" />
     </div>
     
   
   <div class="mb-2">
     <label for="address_2" class="block text-sm font-semibold mb-1">Address<span class="text-red-600">*</span></label>
-    <input type="text" id="address_2" name="address_2" maxlength="30"  class="w-full p-2 border border-gray-300 rounded-lg" />
+    <input type="text" id="address_2" name="address_2__c" maxlength="30"  class="w-full p-2 border border-gray-300 rounded-lg" />
   </div>
   <div class="mb-2">
     <label for="address2_2" class="block text-sm font-semibold mb-1">Address 2</label>
-    <input type="text" id="address2_2" name="address2_2" maxlength="30" class="w-full p-2 border border-gray-300 rounded-lg" />
+    <input type="text" id="address2_2" name="address2_2__c" maxlength="30" class="w-full p-2 border border-gray-300 rounded-lg" />
   </div>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-2">
     <div>
       <label for="city_2" class="block text-sm font-semibold mb-1">City<span class="text-red-600">*</span></label>
-      <input type="text" id="city_2" name="city_2"  class="w-full p-2 border border-gray-300 rounded-lg" />
+      <input type="text" id="city_2" name="city_2__c"  class="w-full p-2 border border-gray-300 rounded-lg" />
     </div>
     <div>
       <label for="state_2" class="block text-sm font-semibold mb-1">State<span class="text-red-600">*</span></label>
-      <select id="state_2" name="state_2"  class="w-full p-2 border border-gray-300 rounded-lg">
+      <select id="state_2" name="state_2__c"  class="w-full p-2 border border-gray-300 rounded-lg">
         <option value="">--None--</option>
         <option value="Arizona">Arizona</option>
         <option value="Alabama">Alabama</option>
@@ -448,7 +450,7 @@ id="addLoanNumberBtn"
     </div>
     <div>
       <label for="zip_2" class="block text-sm font-semibold mb-1">Zip Code<span class="text-red-600">*</span></label>
-      <input type="text" id="zip_2" name="zip_2"  class="w-full p-2 border border-gray-300 rounded-lg" />
+      <input type="text" id="zip_2" name="zip_2__c"  class="w-full p-2 border border-gray-300 rounded-lg" />
     </div>
 
     
@@ -468,12 +470,12 @@ id="addLoanNumberBtn"
   
   <div>
       <label for="name_3" class="block text-sm font-semibold mb-1">Name<span class="text-red-600">*</span></label>
-      <input type="text" id="name_3" name="name_3" class="w-full p-2 border border-gray-300 rounded-lg mb-3" />
+      <input type="text" id="name_3" name="name_3__c" class="w-full p-2 border border-gray-300 rounded-lg mb-3" />
     </div>
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
     <div>
       <label for="name_3_3" class="block text-sm font-semibold mb-1">Name Line 2</label>
-      <select id="name_3_3" name="name_3_3" class="w-full p-2 border border-gray-300 rounded-lg mb-2">
+      <select id="name_3_3" name="name_3_3__c" class="w-full p-2 border border-gray-300 rounded-lg mb-2">
         <option value="">--None--</option>
       <option value="Its Successors And/Or Assigns">Its Successors And/Or Assigns</option>
       <option value="As Their Interest May Appear" >As Their Interest May Appear</option>
@@ -483,32 +485,32 @@ id="addLoanNumberBtn"
     </div>
     <div>
       <label for="name3_3_3" class="block text-sm font-semibold mb-1">Line 2<span class="text-red-600">*</span></label>
-      <input type="text" id="name3_3_3" name="name3_3_3" maxlength="30" class="w-full p-2 border border-gray-300 rounded-lg" />
+      <input type="text" id="name3_3_3" name="name3_3_3__c" maxlength="30" class="w-full p-2 border border-gray-300 rounded-lg" />
     </div>
   </div>
   
     <div>
       <label for="loanNumber_3" class="block text-sm font-semibold mb-1">Loan Number</label>
-      <input type="text" id="loanNumber_3" name="loanNumber_3" class="w-full p-2 border border-gray-300 rounded-lg" />
+      <input type="text" id="loanNumber_3" name="loanNumber_3__c" class="w-full p-2 border border-gray-300 rounded-lg" />
     </div>
     
   
   <div class="mb-2">
     <label for="address_3" class="block text-sm font-semibold mb-1">Address<span class="text-red-600">*</span></label>
-    <input type="text" id="address_1" name="address_1" maxlength="30"  class="w-full p-2 border border-gray-300 rounded-lg" />
+    <input type="text" id="address_3" name="address_3__c" maxlength="30"  class="w-full p-2 border border-gray-300 rounded-lg" />
   </div>
   <div class="mb-2">
     <label for="address2_3" class="block text-sm font-semibold mb-1">Address 2</label>
-    <input type="text" id="address2_3" name="address2_3" maxlength="30" class="w-full p-2 border border-gray-300 rounded-lg" />
+    <input type="text" id="address2_3" name="address2_3__c" maxlength="30" class="w-full p-2 border border-gray-300 rounded-lg" />
   </div>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-2">
     <div>
       <label for="city_3" class="block text-sm font-semibold mb-1">City<span class="text-red-600">*</span></label>
-      <input type="text" id="city_3" name="city_3"  class="w-full p-2 border border-gray-300 rounded-lg" />
+      <input type="text" id="city_3" name="city_3__c"  class="w-full p-2 border border-gray-300 rounded-lg" />
     </div>
     <div>
       <label for="state_3" class="block text-sm font-semibold mb-1">State<span class="text-red-600">*</span></label>
-      <select id="state_3" name="state_3"  class="w-full p-2 border border-gray-300 rounded-lg">
+      <select id="state_3" name="state_3__c"  class="w-full p-2 border border-gray-300 rounded-lg">
         <option value="">--None--</option>
         <option value="Arizona">Arizona</option>
         <option value="Alabama">Alabama</option>
@@ -584,7 +586,7 @@ id="addLoanNumberBtn"
     </div>
     <div>
       <label for="zip_3" class="block text-sm font-semibold mb-1">Zip Code<span class="text-red-600">*</span></label>
-      <input type="text" id="zip_3" name="zip_3"  class="w-full p-2 border border-gray-300 rounded-lg" />
+      <input type="text" id="zip_3" name="zip_3__c"  class="w-full p-2 border border-gray-300 rounded-lg" />
     </div>
   </div>
   <hr class="border-t border-gray-300 my-4" />
@@ -616,7 +618,7 @@ id="addLoanNumberBtn"
       <h3 class="text-xl font-semibold mb-4 text-gray-700">Payor Information</h3>
       <div>
   <label for="Send_Bill_To" class="block text-sm font-medium text-gray-700">Send Bill To<span class="text-red-600">*</span></label>
-  <select id="Send_Bill_To" name="Send_Bill_To" required 
+  <select id="Send_Bill_To" name="Send_Bill_To__c" required 
           class="mt-1 w-full p-2 border border-gray-300 rounded-lg shadow-sm mb-3">
     <option value="">--None--</option>
     <option value="Mortgage with copy to Insured">Mortgagee with copy to Insured</option>
@@ -627,7 +629,7 @@ id="addLoanNumberBtn"
 <div id="billByMailContainer" style="display: none;">
   <div>
     <label for="Bill_By_Mail" class="block text-sm font-medium text-gray-700">Bill By Mail</label>
-    <select id="Bill_By_Mail" name="Bill_By_Mail"  
+    <select id="Bill_By_Mail" name="Bill_By_Mail__c"  
       class="mt-1 w-full p-2 border border-gray-300 rounded-lg shadow-sm">
       <option value="">--None--</option>
       <option value="Full Pay">Full Pay</option>
@@ -683,20 +685,19 @@ id="addLoanNumberBtn"
 
   let loanCount = 1; // Loan Number 1 is always visible
 
-  function createLoanRow(idx) {
+ function createLoanRow(idx) {
     const div = document.createElement('div');
-    div.className = `loan-number-row mt-2`;
+    div.className = 'loan-number-row mt-2';
     div.id = `loanNumberRow${idx}`;
     div.innerHTML = `
         <label for="LoanNumberToDelete${idx}" class="block text-sm font-semibold mb-1">Loan Number ${idx}</label>
-        <input type="text" id="LoanNumberToDelete${idx}" name="LoanNumberToDelete${idx}" class="w-full p-2 border border-gray-300 rounded-lg" />
+        <input type="text" id="LoanNumberToDelete${idx}" name="Loan_Number_To_Delete${idx}__c" class="w-full p-2 border border-gray-300 rounded-lg" />
         <div class="flex">
             <button type="button" class="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded-lg shadow delete-loan-btn mt-2 ml-auto" data-rowidx="${idx}">Delete this item</button>
         </div>
     `;
     return div;
 }
-
 
 
   // Add Loan field logic
@@ -918,6 +919,52 @@ id="addLoanNumberBtn"
     loanNumberLimitMsg.classList.add("hidden");
   }
     });
+
+
+
+    function updateCounts() {
+    // Loan to delete count (Loan Number section)
+    let loanDeleteVisible = 0;
+    // Loan Number 1 is always visible if checkbox checked
+    const deleteInterestChecked = document.getElementById('deleteInterest').checked;
+    if (deleteInterestChecked && document.getElementById('loanNumberRow1').style.display !== 'none') {
+        loanDeleteVisible = 1;
+    }
+    // Count dynamically added loan number rows (Loan Number to delete)
+    const loanRows = document.querySelectorAll('#loanNumberDeleteContainer .loan-number-row');
+    loanDeleteVisible += loanRows.length;
+    document.getElementById('loanDeleteCount').value = loanDeleteVisible;
+
+    // Number of additional interests added (Additional Interest sections)
+    let interestAddCount = 0;
+    for (let i = 1; i <= 3; i++) {
+        let section = document.getElementById(`additionalInterest${i}`);
+        if (section && !section.classList.contains('hidden')) { // visible section
+            interestAddCount++;
+        }
+    }
+    document.getElementById('interestAddCount').value = interestAddCount;
+}
+
+// Whenever user changes interests/loan numbers, update the counts
+document.getElementById('addLoanNumberBtn')?.addEventListener('click', updateCounts);
+document.querySelectorAll('.delete-loan-btn').forEach(btn => btn.addEventListener('click', function() {
+    setTimeout(updateCounts, 50); // allow DOM remove before counting
+}));
+document.getElementById('deleteInterest')?.addEventListener('change', function() {
+    setTimeout(updateCounts, 50);
+});
+document.getElementById('addAdditionalInterestBtn')?.addEventListener('click', function() {
+    setTimeout(updateCounts, 50);
+});
+document.querySelectorAll('.delete-btn').forEach(btn => btn.addEventListener('click', function() {
+    setTimeout(updateCounts, 50);
+}));
+
+// Initial count on page load
+document.addEventListener('DOMContentLoaded', function() {
+    updateCounts();
+});
       });
     </script>
   </form>
