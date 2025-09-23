@@ -37,7 +37,7 @@
       border: 1px solid #d1d5db;
       position: absolute;
       z-index: 10;
-      bottom: 125%;g
+      bottom: 125%;
       left: 50%;
       margin-left: -160px;
       font-size: 0.85rem;
@@ -77,8 +77,8 @@
           name="00NU7000005zuNN"
           value="EOI"
         />
-<!--<input type="hidden" name="debug" value=1> -->                          
-<!--<input type="hidden" name="debugEmail" value="annie.rawal@caeliusconsulting.com">--> 
+<!--<input type="hidden" name="debug" value=1>                            
+<input type="hidden" name="debugEmail" value="annie.rawal@caeliusconsulting.com"> -->
 
 
     <!-- Policy Changes Section (email, request type, policy action) -->
@@ -135,9 +135,9 @@
             maxlength="8"
             minlength="8"
             class="mt-1 w-full p-2 border border-gray-300 rounded-lg shadow-sm"
-            title="Policy Number must start with 'O' and be 8 characters total (e.g., O1234567)"
+            title="Policy Number must start with 'OY' and be 8 characters total (e.g., OY123456)"
           />
-          <div id="policyNumberError" class="error-message hidden">Policy Number must start with 'O' and be 8 digits total (e.g., O1234567).</div>
+          <div id="policyNumberError" class="error-message hidden">Policy Number must start with 'OY' and be 8 digits total (e.g., OY123456).</div>
         </div>
        <!-- <div>
           <label for="00NU7000006Hi7d" class="block text-sm font-medium text-gray-700">Line of Business</label>
@@ -861,10 +861,10 @@ id="addLoanNumberBtn"
         const policyNumberError = document.getElementById("policyNumberError");
         function validatePolicyNumberField() {
           const val = policyNumberInput.value.trim();
-          const valid = /^O\d{7}$/.test(val);
+          const valid = /^OY\d{6}$/.test(val);
           policyNumberInput.classList.toggle("error", !valid && val.length > 0);
           policyNumberError.classList.toggle("hidden", valid || val.length === 0);
-          policyNumberInput.setCustomValidity(valid || val.length === 0 ? "" : "Policy Number must start with 'O' and be 8 characters (e.g., O1234567)");
+          policyNumberInput.setCustomValidity(valid || val.length === 0 ? "" : "Policy Number must start with 'OY' and be 8 characters (e.g., OY123456)");
         }
         policyNumberInput.addEventListener("input", validatePolicyNumberField);
         policyNumberInput.addEventListener("blur", validatePolicyNumberField);
