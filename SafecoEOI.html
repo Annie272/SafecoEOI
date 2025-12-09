@@ -74,7 +74,7 @@
     <input type="hidden" name="delete_Action_Form__c" value="1" />
      <input type="hidden" id="formDataJson" name="Form_Captured_Data__c" value="" />
     <input type="hidden" id="formMissingData" name="Form_Missing_Data__c" value="" />
-              <input type="hidden" name="Carrier__c" value ="Safeco">
+                        <input type="hidden" name="Carrier__c" value ="Safeco">
 
      <input
           type="hidden"
@@ -174,33 +174,49 @@
      <div id="additionalInterestContainer">
 
 
+<section class="bg-gray-50 border rounded-xl p-6 shadow-inner mb-6" aria-label="Delete Existing Interests">
+  <h3 class="text-xl font-semibold mb-4 text-gray-700">Delete Existing Interests</h3>
 
-      <section class="bg-gray-50 border rounded-xl p-6 shadow-inner mb-6" aria-label="Delete Existing Interests">
- <h3 class="text-xl font-semibold mb-4 text-gray-700">Delete Existing Interests</h3>
- <div class="space-y-4">
- <div class="mt-4">
- <label for="deleteInterest" class="block text-sm font-medium text-gray-700 mb-1">
- Do you want to delete existing additional interests?
-</label>
-<input type="checkbox" id="deleteInterest" name="deleteInterest" value="1" class="mr-2"/>
-</div>
-<div id="loanNumberDeleteContainer">
-<!-- Loan Number 1, always visible -->
-<div id="loanNumberRow1" style="display:none;">
-  <label for="Loan_Number_To_Delete1" class="block text-sm font-semibold mb-1">Loan Number 1</label>
-  <input type="text" id="Loan_Number_To_Delete1" name="Loan_Number_To_Delete1__c" class="w-full p-2 border border-gray-300 rounded-lg" />
-</div>
- <!-- Loan Number 2 and 3 will be dynamically inserted here -->
-</div>
- <button type="button"
-id="addLoanNumberBtn"
-  class="hidden bg-teal-700 hover:bg-teal-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 mt-2 shadow">
-<span class="text-lg font-bold">+</span>
-<span>Add Interest</span>
- </button>
- <p id="loanNumberLimitMsg" class="text-red-600 text-sm mt-2 hidden">Only up to 3 loan numbers allowed.</p>
-</div>
+  <!-- New checkbox -->
+  <div class="mt-2">
+    <label for="deleteInterestToggle" class="inline-flex items-center text-sm font-medium text-gray-700">
+      <input type="checkbox" id="deleteInterestToggle" class="mr-2">
+      Do you want to delete any interest?
+    </label>
+  </div>
+
+  <!-- Wrapper that will be shown/hidden based on checkbox -->
+  <div id="deleteInterestContainerWrapper" class="mt-4 hidden">
+    <div id="deleteInterestContainer" class="space-y-4">
+      <div class="interest-type-row flex flex-col gap-1 mt-2">
+        <label for="interestType0" class="block text-sm font-medium text-gray-700">
+          Which interest type you want to delete?<span class="text-red-600">*</span>
+        </label>
+
+        <div class="flex items-center gap-2">
+         <select id="Delete_Interest_Type_1__c"
+        name="Delete_Interest_Type_1__c"
+        class="w-full p-2 border border-gray-300 rounded-lg shadow-sm">
+            <option value="">-- Select an option --</option>
+            <option value="1">Mortgage Servicing Agency for 1st Mortgagee</option>
+            <option value="2">Second Mortgagee</option>
+            <option value="3">Home Equity Line of Credit</option>
+          </select>
+          <!-- delete button for rows > 0 via JS -->
+        </div>
+      </div>
+    </div>
+
+    <button type="button"
+            id="addMoreInterestBtn"
+            class="hidden bg-teal-700 hover:bg-teal-800 text-white px-4 py-2 rounded-lg mt-4 shadow"
+            disabled>
+      Add More
+    </button>
+  </div>
 </section>
+
+
 
   <section class="bg-gray-50 border rounded-xl p-6 shadow-inner mb-6" id="additionalInterest1">
   <h3 class="text-xl font-semibold mb-4 text-gray-700">Additional Interest 1</h3>
@@ -208,7 +224,7 @@ id="addLoanNumberBtn"
   
  <div>
       <label for="name_1" class="block text-sm font-semibold mb-1">Name<span class="text-red-600">*</span></label>
-      <input type="text" id="name_1__c" name="name_1__c" class="w-full p-2 border border-gray-300 rounded-lg mb-3" />
+      <input type="text" id="name_1" name="name_1__c" class="w-full p-2 border border-gray-300 rounded-lg mb-3" />
     </div>
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
     <div>
@@ -657,6 +673,61 @@ id="addLoanNumberBtn"
     </div>
      <script>
       document.addEventListener("DOMContentLoaded", function () {
+        const deleteInterestToggle = document.getElementById("deleteInterestToggle");
+const deleteInterestContainerWrapper = document.getElementById("deleteInterestContainerWrapper");
+
+function setDeleteInterestRequired(isRequired) {
+  const names = [
+    "Delete_Interest_Type_1__c",
+    "Delete_Interest_Type_2__c",
+    "Delete_Interest_Type_3__c"
+  ];
+  names.forEach((name) => {
+    const el = document.querySelector(`select[name="${name}"]`);
+    if (el) {
+      if (isRequired) {
+        el.setAttribute("required", "required");
+      } else {
+        el.removeAttribute("required");
+        el.setCustomValidity("");
+      }
+    }
+  });
+}
+
+deleteInterestToggle.addEventListener("change", function () {
+  if (this.checked) {
+    deleteInterestContainerWrapper.classList.remove("hidden");
+    // ensure at least one row exists
+    if (!container.querySelector(".interest-type-row")) {
+      rebuildSelects();
+    }
+    setDeleteInterestRequired(true);
+    updateAddMoreBtn();
+  } else {
+    deleteInterestContainerWrapper.classList.add("hidden");
+    // clear and relax requirements
+    container.querySelectorAll("select").forEach((s) => { s.value = ""; });
+    setDeleteInterestRequired(false);
+    addMoreBtn.disabled = true;
+    addMoreBtn.classList.add("hidden");
+  }
+});
+
+// initial state on page load
+if (deleteInterestToggle.checked) {
+  deleteInterestContainerWrapper.classList.remove("hidden");
+  setDeleteInterestRequired(true);
+  updateAddMoreBtn();
+} else {
+  deleteInterestContainerWrapper.classList.add("hidden");
+  setDeleteInterestRequired(false);
+}
+        const interestFieldApiNames = [
+  "Delete_Interest_Type_1__c",
+  "Delete_Interest_Type_2__c",
+  "Delete_Interest_Type_3__c"
+];
       const formEl = document.getElementById("mainForm");
 const reviewBtn = document.getElementById("reviewBtn");
 const dialog = document.getElementById("dialog");
@@ -684,61 +755,143 @@ const editBtn = document.getElementById("editBtn");
     billByMailContainer.style.display = "none";
   }
 
-        const deleteInterestCheckbox = document.getElementById("deleteInterest");
-  const loanNumberRow1 = document.getElementById("loanNumberRow1");
 
-  function toggleLoanNumberRow1() {
-    loanNumberRow1.style.display = deleteInterestCheckbox.checked ? "block" : "none";
+
+
+      const container = document.getElementById("deleteInterestContainer");
+  const addMoreBtn = document.getElementById("addMoreInterestBtn");
+
+  const maxOptions = [
+    { value: "1", text: "Mortgage Servicing Agency for 1st Mortgagee" },
+    { value: "2", text: "Second Mortgagee" },
+    { value: "3", text: "Home Equity Line of Credit" },
+  ];
+
+  function getSelectedValues() {
+    const selects = container.querySelectorAll("select");
+    return Array.from(selects)
+      .map((s) => s.value)
+      .filter((v) => v !== "");
   }
 
-  deleteInterestCheckbox.addEventListener("change", toggleLoanNumberRow1);
+  function getRemainingOptions() {
+    const selected = getSelectedValues();
+    return maxOptions.filter((o) => !selected.includes(o.value));
+  }
 
-  
+  function updateAddMoreBtn() {
+  const rows = container.querySelectorAll(".interest-type-row");
+  const rowCount = rows.length;
 
-         const loanNumberContainer = document.getElementById("loanNumberDeleteContainer");
-  const addLoanNumberBtn = document.getElementById("addLoanNumberBtn");
-  const loanNumberLimitMsg = document.getElementById("loanNumberLimitMsg");
+  // If already 3 rows, force‑disable and hide Add More
+  if (rowCount >= 3) {
+    addMoreBtn.disabled = true;
+    addMoreBtn.classList.add("hidden");
+    return;
+  }
 
-  let loanCount = 1; // Loan Number 1 is always visible
+  const lastSelect = container.querySelector("select:last-of-type");
+  const hasValue = lastSelect && lastSelect.value !== "";
+  const remainingOptions = getRemainingOptions();
 
- function createLoanRow(idx) {
-    const div = document.createElement('div');
-    div.className = 'loan-number-row mt-2';
-    div.id = `loanNumberRow${idx}`;
-    div.innerHTML = `
-        <label for="LoanNumberToDelete${idx}" class="block text-sm font-semibold mb-1">Loan Number ${idx}</label>
-        <input type="text" id="LoanNumberToDelete${idx}" name="Loan_Number_To_Delete${idx}__c" class="w-full p-2 border border-gray-300 rounded-lg" />
-        <div class="flex">
-            <button type="button" class="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded-lg shadow delete-loan-btn mt-2 ml-auto" data-rowidx="${idx}">Delete this item</button>
-        </div>
-    `;
-    return div;
+  // Enable only when last has value, there are options left, and < 3 rows
+  const canAddMore = hasValue && remainingOptions.length > 0;
+  addMoreBtn.disabled = !canAddMore;
+  addMoreBtn.classList.toggle("hidden", !canAddMore);
 }
 
 
-  // Add Loan field logic
-  addLoanNumberBtn.addEventListener("click", function () {
-    if (loanCount < 3) {
-      loanCount++;
-      const loanRow = createLoanRow(loanCount);
-      loanNumberContainer.appendChild(loanRow);
+ function createInterestSelect(idx, selectedValue = "") {
+  const row = document.createElement("div");
+  row.className = "interest-type-row flex flex-col gap-1 mt-2";
+  row.dataset.idx = idx;
 
-      // Attach delete event for this row button
-      loanRow.querySelector(".delete-loan-btn").addEventListener("click", function () {
-        loanRow.remove();
-        loanCount--;
-        addLoanNumberBtn.disabled = false;
-        addLoanNumberBtn.classList.remove("opacity-50", "cursor-not-allowed");
-        loanNumberLimitMsg.classList.add("hidden");
-      });
-    }
+  const label = document.createElement("label");
+  label.className = "block text-sm font-medium text-gray-700";
+  label.setAttribute("for", `interestType${idx}`);
+label.innerHTML = 'Which interest type you want to delete?<span class="text-red-600">*</span>';
 
-    if (loanCount === 3) {
-      addLoanNumberBtn.disabled = true;
-      addLoanNumberBtn.classList.add("opacity-50", "cursor-not-allowed");
-      loanNumberLimitMsg.classList.remove("hidden");
+  const controlWrap = document.createElement("div");
+  controlWrap.className = "flex items-center gap-2";
+
+  const select = document.createElement("select");
+const apiName = interestFieldApiNames[idx] || interestFieldApiNames[interestFieldApiNames.length - 1];
+select.id = apiName;
+select.name = apiName;
+select.className = "w-full p-2 border border-gray-300 rounded-lg shadow-sm";
+
+  const defaultOption = document.createElement("option");
+  defaultOption.value = "";
+  defaultOption.textContent = "-- Select an option --";
+  select.appendChild(defaultOption);
+
+  const selectedInThisRow = selectedValue ? [selectedValue] : [];
+  const selectedOverall = getSelectedValues();
+
+  maxOptions.forEach((opt) => {
+    if (!selectedOverall.includes(opt.value) || selectedInThisRow.includes(opt.value)) {
+      const option = document.createElement("option");
+      option.value = opt.value;
+      option.textContent = opt.text;
+      if (opt.value === selectedValue) option.selected = true;
+      select.appendChild(option);
     }
   });
+
+  controlWrap.appendChild(select);
+
+  if (idx > 0) {
+    const deleteBtn = document.createElement("button");
+    deleteBtn.type = "button";
+    deleteBtn.className = "bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-lg shadow delete-btn";
+    deleteBtn.textContent = "Delete";
+    deleteBtn.addEventListener("click", function () {
+      row.remove();
+      updateAddMoreBtn();
+    });
+    controlWrap.appendChild(deleteBtn);
+  }
+
+  select.addEventListener("change", function () {
+    updateAddMoreBtn();
+    rebuildSelects();
+  });
+
+  row.appendChild(label);
+  row.appendChild(controlWrap);
+
+  return row;
+}
+
+  function rebuildSelects() {
+    const selectedValues = getSelectedValues();
+
+    container.innerHTML = "";
+    selectedValues.forEach((val, index) => {
+      const selectDiv = createInterestSelect(index, val);
+      container.appendChild(selectDiv);
+    });
+
+    if (selectedValues.length === 0) {
+      const firstSelect = createInterestSelect(0);
+      container.appendChild(firstSelect);
+    }
+
+    updateAddMoreBtn();
+  }
+
+  rebuildSelects();
+
+  addMoreBtn.addEventListener("click", function () {
+    const currentCount = container.querySelectorAll(".interest-type-row").length;
+    if (getRemainingOptions().length === 0) {
+      return;
+    }
+    const newSelect = createInterestSelect(currentCount);
+    container.appendChild(newSelect);
+    updateAddMoreBtn();
+  });
+
         
         // Handle enabling/disabling "Other" input field in Additional Interest Name Line 2
         const mappings = [
@@ -873,35 +1026,7 @@ const editBtn = document.getElementById("editBtn");
         }
 
     
-    const addInterestBtn = document.getElementById("addLoanNumberBtn");
-
-    // Initial check on load
-    addInterestBtn.classList.toggle("hidden", !deleteInterestCheckbox.checked);
-
-    // Toggle on change
-    deleteInterestCheckbox.addEventListener("change", function () {
-       if (this.checked) {
-    addInterestBtn.classList.remove("hidden");
-  } else {
-    addInterestBtn.classList.add("hidden");
-
-    // Remove all dynamically added loan rows (Loan 2 & 3)
-    const dynamicLoanRows = loanNumberContainer.querySelectorAll(".loan-number-row");
-    dynamicLoanRows.forEach(row => {
-      // Only remove rows beyond the first one (Loan 1 is always visible)
-      if (row.id !== "loanNumberRow1") {
-        row.remove();
-        loanCount = 1; // reset loanCount back to 1
-      }
-    });
-
-    // Re-enable Add Interest button in case it was disabled
-    addLoanNumberBtn.disabled = false;
-    addLoanNumberBtn.classList.remove("opacity-50", "cursor-not-allowed");
-    loanNumberLimitMsg.classList.add("hidden");
-  }
-    });
-
+  
 
 
     function updateCounts() {
@@ -956,9 +1081,12 @@ const fieldData = [
   { id: "00NU7000006IOzh", label: "Request Type", type: "radio" },
   { id: "00NU7000005zuX3", label: "Policy Number" },
   { id: "00NU7000005zuLl", label: "Effective Date", type: "date" },
+  { id: "Delete_Interest_Type_1__c", label: "Which Interest type you want to delete 1", sectionId: "deleteInterestContainerWrapper" },
+{ id: "Delete_Interest_Type_2__c", label: "Which Interest type you want to delete 2", sectionId: "deleteInterestContainerWrapper" },
+{ id: "Delete_Interest_Type_3__c", label: "Which Interest type you want to delete 3", sectionId: "deleteInterestContainerWrapper" },
 
   // Additional Interest 1 (always visible)
-  { id: "name_1__c", label: "Name" },
+  { id: "name_1", label: "Name" },
   { id: "name1_1_1", label: "Line 2" },
   { id: "address_1", label: "Address" },
   { id: "city_1", label: "City" },
@@ -966,7 +1094,7 @@ const fieldData = [
   { id: "zip_1", label: "Zip Code" },
 
   // Additional Interest 2 (only when section visible)
-  { id: "name_2__c", label: "Name", sectionId: "additionalInterest2" },
+  { id: "name_2", label: "Name", sectionId: "additionalInterest2" },
   { id: "name2_2_2", label: "Line 2", sectionId: "additionalInterest2" },
   { id: "address_2", label: "Address", sectionId: "additionalInterest2" },
   { id: "city_2", label: "City", sectionId: "additionalInterest2" },
@@ -974,7 +1102,7 @@ const fieldData = [
   { id: "zip_2", label: "Zip Code", sectionId: "additionalInterest2" },
 
   // Additional Interest 3 (only when section visible)
-  { id: "name_3__c", label: "Name", sectionId: "additionalInterest3" },
+  { id: "name_3", label: "Name", sectionId: "additionalInterest3" },
   { id: "name3_3_3", label: "Line 2", sectionId: "additionalInterest3" },
   { id: "address_3", label: "Address", sectionId: "additionalInterest3" },
   { id: "city_3", label: "City", sectionId: "additionalInterest3" },
