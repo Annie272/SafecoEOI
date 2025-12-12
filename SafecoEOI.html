@@ -1029,49 +1029,69 @@ select.className = "w-full p-2 border border-gray-300 rounded-lg shadow-sm";
   
 
 
-    function updateCounts() {
-    // Loan to delete count (Loan Number section)
-    let loanDeleteVisible = 0;
-    // Loan Number 1 is always visible if checkbox checked
-    const deleteInterestChecked = document.getElementById('deleteInterest').checked;
-    if (deleteInterestChecked && document.getElementById('loanNumberRow1').style.display !== 'none') {
-        loanDeleteVisible = 1;
-    }
-    // Count dynamically added loan number rows (Loan Number to delete)
-    const loanRows = document.querySelectorAll('#loanNumberDeleteContainer .loan-number-row');
-    loanDeleteVisible += loanRows.length;
-    document.getElementById('loanDeleteCount').value = loanDeleteVisible;
+   function updateCounts() {
+  // 1) Loan delete count = number of delete‑interest rows when toggle ON
+  const deleteInterestToggle = document.getElementById('deleteInterestToggle');
+  const deleteInterestContainer = document.getElementById('deleteInterestContainer');
+  let loanDeleteVisible = 0;
 
-    // Number of additional interests added (Additional Interest sections)
-    let interestAddCount = 0;
-    for (let i = 1; i <= 3; i++) {
-        let section = document.getElementById(`additionalInterest${i}`);
-        if (section && !section.classList.contains('hidden')) { // visible section
-            interestAddCount++;
-        }
+  if (deleteInterestToggle && deleteInterestToggle.checked && deleteInterestContainer) {
+    loanDeleteVisible = deleteInterestContainer.querySelectorAll('.interest-type-row').length;
+  }
+  const loanDeleteHidden = document.getElementById('loanDeleteCount');
+  if (loanDeleteHidden) {
+    loanDeleteHidden.value = loanDeleteVisible;
+  }
+
+  // 2) Additional interest count = visible Additional Interest sections
+  let interestAddCount = 0;
+  for (let i = 1; i <= 3; i++) {
+    const section = document.getElementById(`additionalInterest${i}`);
+    if (section && !section.classList.contains('hidden')) {
+      interestAddCount++;
     }
-    document.getElementById('interestAddCount').value = interestAddCount;
+  }
+  const interestAddHidden = document.getElementById('interestAddCount');
+  if (interestAddHidden) {
+    interestAddHidden.value = interestAddCount;
+  }
 }
 
-// Whenever user changes interests/loan numbers, update the counts
-document.getElementById('addLoanNumberBtn')?.addEventListener('click', updateCounts);
-document.querySelectorAll('.delete-loan-btn').forEach(btn => btn.addEventListener('click', function() {
-    setTimeout(updateCounts, 50); // allow DOM remove before counting
-}));
-document.getElementById('deleteInterest')?.addEventListener('change', function() {
-    setTimeout(updateCounts, 50);
-});
-document.getElementById('addAdditionalInterestBtn')?.addEventListener('click', function() {
-    setTimeout(updateCounts, 50);
-});
-document.querySelectorAll('.delete-btn').forEach(btn => btn.addEventListener('click', function() {
-    setTimeout(updateCounts, 50);
-}));
 
-// Initial count on page load
-document.addEventListener('DOMContentLoaded', function() {
-    updateCounts();
+// When user toggles delete‑interest
+document.getElementById('deleteInterestToggle')?.addEventListener('change', () => {
+  setTimeout(updateCounts, 50);
 });
+
+// When user clicks "Add More" in delete‑interest section
+document.getElementById('addMoreInterestBtn')?.addEventListener('click', () => {
+  setTimeout(updateCounts, 50);
+});
+
+// When user deletes a delete‑interest row
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('delete-btn') &&
+      e.target.closest('#deleteInterestContainer')) {
+    setTimeout(updateCounts, 50);
+  }
+});
+
+// When user adds an Additional Interest section
+document.getElementById('addAdditionalInterestBtn')?.addEventListener('click', () => {
+  setTimeout(updateCounts, 50);
+});
+
+// When user deletes an Additional Interest section
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('delete-btn') &&
+      e.target.closest('section[id^="additionalInterest"]')) {
+    setTimeout(updateCounts, 50);
+  }
+});
+
+// Initial sync on load
+updateCounts();
+
   // ================= SHARED VALIDATION + CAPTURE/MISSING =================
 
   // Central list of fields to validate
