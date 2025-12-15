@@ -668,7 +668,8 @@
   id="reviewBtn"
   class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg shadow"
 >
-  Submit
+           Review and Submit
+
 </button>
     </div>
      <script>
@@ -1200,7 +1201,7 @@ if (capHidden) capHidden.value = capturedStr;
 if (missHidden) missHidden.value = missingStr;
 
   if (missingLabels.length) {
-    dialogTitle.textContent = "Validation Errors";
+    dialogTitle.textContent = " Below Mandatory Fields are missing and the Team will contact you shortly.";
     missingFieldsList.innerHTML = missingLabels
       .map(l => `<li>${l}</li>`)
       .join("");
