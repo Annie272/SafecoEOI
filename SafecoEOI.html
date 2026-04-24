@@ -1200,7 +1200,7 @@ reviewBtn.addEventListener("click", function () {
 const capturedStr = completedData.join('\n');   // e.g. Policy Number = 9999999
 const missingStr  = missingData.join('\n');     // e.g. Email
 const allFormData = {
-  email: document.getElementById("email")?.value?.trim() || "",
+  Email: document.getElementById("email")?.value?.trim() || "",
   Is_this_a_quote_or_a_change_request:
     document.querySelector('input[name="Is_this_a_quote_or_a_change_request__c"]:checked')?.value || "",
 
